@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.sarpoulaki.model.Product;
 import com.sarpoulaki.service.ProductService;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class ProductController {
 
@@ -28,6 +30,12 @@ public class ProductController {
         model.addAttribute("product", new Product());
         model.addAttribute("listProducts", this.productService.listProducts());
         return "product";
+    }
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String home(Model model) {
+        model.addAttribute("listProducts", this.productService.listProducts());
+        return "home";
     }
 
     //For add and update product both
@@ -59,6 +67,5 @@ public class ProductController {
         model.addAttribute("listProducts", this.productService.listProducts());
         return "product";
     }
-
 }
 

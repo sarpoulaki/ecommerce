@@ -13,24 +13,24 @@
     </style>
 </head>
 <body>
-<h1 align="center">
+<h1>
     Add a Product
 </h1>
 
 <c:url var="addAction" value="/product/add" ></c:url>
 
-<form:form action="${addAction}" commandName="product" >
-    <table align="center">
+<form:form action="${addAction}" commandName="product">
+    <table>
         <c:if test="${!empty product.name}">
             <tr>
                 <td>
-                    <form:label path="id" >
+                    <form:label path="id">
                         <spring:message text="ID"/>
                     </form:label>
                 </td>
                 <td>
                     <form:input path="id" readonly="true" size="8"  disabled="true" />
-                    <form:hidden path="id"  />
+                    <form:hidden path="id" />
                 </td>
             </tr>
         </c:if>
@@ -89,6 +89,30 @@
     </table>
 </form:form>
 <br>
-
+<h3 align="center">Products List</h3>
+<c:if test="${!empty listProducts}">
+    <table class="tg">
+        <tr>
+            <th width="80">Product ID</th>
+            <th width="120">Product Name</th>
+            <th width="120">Product Description</th>
+            <th width="120">Unit Price</th>
+            <th width="120">Quantity On Hand</th>
+            <th width="60">Edit</th>
+            <th width="60">Delete</th>
+        </tr>
+        <c:forEach items="${listProducts}" var="product">
+            <tr>
+                <td align="right">${product.id}</td>
+                <td>${product.name}</td>
+                <td>${product.description}</td>
+                <td align="right">${product.unitPrice}</td>
+                <td align="right">${product.quantityOnHand}</td>
+                <td align="center"><a href="<c:url value='/edit/${product.id}' />" >Edit</a></td>
+                <td align="center"><a href="<c:url value='/remove/${product.id}' />" >Delete</a></td>
+            </tr>
+        </c:forEach>
+    </table>
+</c:if>
 </body>
 </html>

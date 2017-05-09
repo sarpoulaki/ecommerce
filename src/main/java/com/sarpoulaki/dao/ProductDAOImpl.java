@@ -28,7 +28,7 @@ public class ProductDAOImpl implements ProductDAO {
     @Override
     public void updateProduct(Product p) {
         Session session = this.sessionFactory.getCurrentSession();
-        session.persist(p);
+        session.update(p);
         logger.info("Product updated successfully, Product Details="+p);
     }
 

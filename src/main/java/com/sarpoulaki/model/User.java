@@ -27,6 +27,8 @@ public class User {
 
     private String name;
 
+    private String password;
+
     private String email;
 
     private String role;
@@ -71,6 +73,14 @@ public class User {
                 ", email='" + email + '\'' +
                 ", role=" + role +
                 '}';
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
 

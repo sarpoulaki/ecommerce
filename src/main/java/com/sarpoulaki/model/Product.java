@@ -1,11 +1,7 @@
 package com.sarpoulaki.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Entity bean with JPA annotations
@@ -25,6 +21,9 @@ public class Product {
     private String description;
     private double unitPrice;
     private int quantityOnHand;
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
+    private Set<Order> orders;
 
     public String getStatus() {
         return status;
@@ -76,6 +75,13 @@ public class Product {
         this.quantityOnHand = quantityOnHand;
     }
 
+    public Set<Order> getOrders() {
+        return this.orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
     @Override
     public String toString() {
         return "Product{" +

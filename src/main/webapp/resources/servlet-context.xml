@@ -43,14 +43,7 @@
 	<beans:bean id="hibernate4AnnotatedSessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<beans:property name="dataSource" ref="dataSource" />
-		<beans:property name="annotatedClasses">
-			<beans:list>
-				<beans:value>com.sarpoulaki.model.Product</beans:value>
-				<beans:value>com.sarpoulaki.model.Order</beans:value>
-				<beans:value>com.sarpoulaki.model.User</beans:value>
-				<beans:value>com.sarpoulaki.model.ProductOrder</beans:value>
-			</beans:list>
-		</beans:property>
+		<beans:property name="packagesToScan" value="com.sarpoulaki.model" />
 		<beans:property name="hibernateProperties">
 			<beans:props>
 				<beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
@@ -60,15 +53,22 @@
 			</beans:props>
 		</beans:property>
 	</beans:bean>
-	
+
 	<beans:bean id="productDAO" class="com.sarpoulaki.dao.ProductDAOImpl">
 		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
 	</beans:bean>
 	<beans:bean id="productService" class="com.sarpoulaki.service.ProductServiceImpl">
 		<beans:property name="productDAO" ref="productDAO"></beans:property>
 	</beans:bean>
+
+	<beans:bean id="userDAO" class="com.sarpoulaki.dao.UserDAOImpl">
+		<beans:property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory" />
+	</beans:bean>
+	<beans:bean id="userService" class="com.sarpoulaki.service.UserServiceImpl">
+		<beans:property name="userDAO" ref="userDAO"></beans:property>
+	</beans:bean>
 	<context:component-scan base-package="com.sarpoulaki" />
-	
+
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
 	<beans:bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
