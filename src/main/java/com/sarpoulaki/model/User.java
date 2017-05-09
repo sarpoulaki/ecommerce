@@ -29,6 +29,8 @@ public class User {
 
     private String password;
 
+    private String confirmpassword;
+
     private String email;
 
     private String role;
@@ -70,6 +72,8 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", confirm ='" + confirmpassword + '\'' +
                 ", email='" + email + '\'' +
                 ", role=" + role +
                 '}';
@@ -81,6 +85,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getConfirmpassword() {
+        return confirmpassword;
+    }
+
+    public void setConfirmpassword(String confirmpassword) {
+        this.confirmpassword = confirmpassword;
     }
 }
 

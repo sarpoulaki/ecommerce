@@ -18,7 +18,9 @@
 
 
 <br>
-<input type="button" onclick="location.href='/login'"
+<h3 style="color:red" align="center">${sessionScope.username} </h3>
+
+<input type="button" onclick="location.href='/login'" align="right"
        value="<spring:message text="Login" />" />
 
 <h3 align="center">Products List</h3>

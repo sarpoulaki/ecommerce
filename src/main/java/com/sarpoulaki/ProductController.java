@@ -64,7 +64,7 @@ public class ProductController {
     @RequestMapping("/edit/{id}")
     public String editProduct(@PathVariable("id") int id, Model model) {
         model.addAttribute("product", this.productService.getProductById(id));
-        model.addAttribute("listProducts", this.productService.listProducts());
+//        model.addAttribute("listProducts", this.productService.listProducts());
         return "product";
     }
 }

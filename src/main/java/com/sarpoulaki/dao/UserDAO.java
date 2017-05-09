@@ -9,6 +9,10 @@ import java.util.List;
  */
 public interface UserDAO {
 
+    public boolean authenticateUser(User u);
+
     public boolean validateUser(User u);
+
+    public void addUser(User u);
 
 }

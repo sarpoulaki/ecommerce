@@ -11,4 +11,6 @@ public interface UserService {
 
     public boolean validateUser(User u);
 
+    public String addUser(User u);
+
 }
