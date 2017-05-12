@@ -133,7 +133,11 @@ products_id</ColNames>
       <Position>4</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <key id="44" parent="20" name="PRIMARY">
+    <column id="44" parent="20" name="password">
+      <Position>5</Position>
+      <DataType>varchar(255)|0</DataType>
+    </column>
+    <key id="45" parent="20" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

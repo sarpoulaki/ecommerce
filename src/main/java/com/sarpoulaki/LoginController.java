@@ -5,16 +5,15 @@ import com.sarpoulaki.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpSession;
 
 @Controller
+@SessionAttributes("user")
 public class LoginController {
 
     private UserService userService;
@@ -26,21 +25,45 @@ public class LoginController {
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String listUsers(Model model) {
-        model.addAttribute("user", new User());
-        return "login";
+    public ModelAndView loginUser(ModelAndView modelAndView) {
+        modelAndView.addObject("user", new User());
+        modelAndView.setViewName("login");
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public ModelAndView logoutUser(ModelAndView modelAndView) {
+        modelAndView.addObject("user", new User());
+        modelAndView.setViewName("redirect:/");
+        return modelAndView;
     }
 
     @RequestMapping(value = "/validate", method = RequestMethod.POST)
+    public ModelAndView validateUser(@ModelAttribute("user") User user) {
+        ModelAndView modelAndView = new ModelAndView();
+        user = this.userService.validateUser(user);
+        if (user!=null) {
+            modelAndView.addObject("user", user);
+            modelAndView.setViewName("redirect:/");
+        } else {
+            modelAndView.addObject("message", "Invalid User name or password!");
+            modelAndView.setViewName("login");
+        }
+        return modelAndView;
+    }
+
+/*
+    @RequestMapping(value = "/validate", method = RequestMethod.POST)
     public String validateUser(@ModelAttribute("user") User user, Model model, HttpSession session) {
         if (this.userService.validateUser(user)) {
-            session.setAttribute("username", user.getName());
+            session.setAttribute("user", user);
             return "redirect:/";
         } else {
             model.addAttribute("message", "Invalid User name or password!");
             return "login";
         }
     }
+*/
 
     @RequestMapping(value = "/newUser", method = RequestMethod.GET)
     public String newUser(@ModelAttribute("user") User user) {
@@ -49,17 +72,18 @@ public class LoginController {
 
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public String addNewUser(@ModelAttribute("user") User user, Model model) {
+    public ModelAndView addNewUser(@ModelAttribute("user") User user) {
         String message = this.userService.addUser(user);
-
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("newuser");
         if ("".equals(message)) {
-            model.addAttribute("message", "User was added successfuly");
+            modelAndView.addObject("message", "User was added successfuly");
 //            return "redirect:/login";
         } else {
-            model.addAttribute("message", message);
+            modelAndView.addObject("message", message);
 //            return "newuser";
         }
-        return "newuser";
+        return modelAndView;
     }
 }
 

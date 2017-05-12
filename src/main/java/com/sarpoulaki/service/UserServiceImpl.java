@@ -6,8 +6,6 @@ import com.sarpoulaki.utils.EmailValidator;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -15,7 +13,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public boolean validateUser(User u) {
+    public User validateUser(User u) {
         return userDAO.validateUser(u);
     }
 
@@ -28,7 +26,7 @@ public class UserServiceImpl implements UserService {
             return "please enter email address";
         if ("".equals(u.getPassword()))
             return "Please enter password!";
-        if (!u.getPassword().equals(u.getConfirmpassword()))
+        if (!u.getPassword().equals(u.getConfirmPassword()))
             return "Password does not match confirmation!";
         EmailValidator em = new EmailValidator();
         if (!em.validate(u.getEmail()))

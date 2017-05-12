@@ -1,7 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ page session="false" %>
 <html>
 <head>
     <title>Products</title>
@@ -49,7 +48,7 @@
     Login
 </h1>
 
-<c:url var="addAction" value="/validate"></c:url>
+<c:url var="addAction" value="/register"></c:url>
 <h3 style="color:red" align="center">${message} </h3>
 
 <form:form action="${addAction}" modelAttribute="user">
@@ -66,7 +65,17 @@
         </tr>
         <tr>
             <td>
-                <form:label path="password" >
+                <form:label path="email">
+                    <spring:message text="Email"/>
+                </form:label>
+            </td>
+            <td>
+                <form:input path="email"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <form:label path="password">
                     <spring:message text="Password"/>
                 </form:label>
             </td>
@@ -75,21 +84,25 @@
             </td>
         </tr>
         <tr>
+            <td>
+                <form:label path="confirmPassword">
+                    <spring:message text="Confirm Password"/>
+                </form:label>
+            </td>
+            <td>
+                <form:password path="confirmPassword"/>
+            </td>
+        </tr>
+        <tr>
             <td colspan="2">
                 <input type="submit"
-                       value="<spring:message text="Login"/>"/>
-                <input type="button" onclick="location.href='/'"
+                       value="<spring:message text="Save"/>"/>
+                <input type="button" onclick="location.href='/login'"
                        value="<spring:message text="Back"/>"/>
             </td>
         </tr>
     </table>
 </form:form>
-<div style="font-size:85%" align="center">
-    Don't have an account!
-    <a href="#" onClick="location.href='/newUser'">
-        Sign Up Here
-    </a>
-</div>
 <br>
 
 </body>

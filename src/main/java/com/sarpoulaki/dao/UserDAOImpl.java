@@ -20,15 +20,21 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean validateUser(User u) {
+    public User validateUser(User u) {
         Session session = this.sessionFactory.getCurrentSession();
         List<User> userList = session.createQuery("from User where name='"+u.getName()+"'").list();
+//        List<User> userList = session.createQuery("from User").list();
+        for(User ul: userList) {
+            System.out.println(ul);
+
+        }
         if (userList.size()==0)
-            return false;
-        if (userList.get(0).getPassword().equals(u.getPassword())) {
-            return true;
+            return null;
+        User nu = userList.get(0);
+        if (nu.getPassword().equals(u.getPassword())) {
+            return nu;
         } else {
-            return false;
+            return null;
         }
     }
     @Override

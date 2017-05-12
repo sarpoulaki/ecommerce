@@ -11,7 +11,7 @@ public interface UserDAO {
 
     public boolean authenticateUser(User u);
 
-    public boolean validateUser(User u);
+    public User validateUser(User u);
 
     public void addUser(User u);
 

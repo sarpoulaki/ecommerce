@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface UserService {
 
-    public boolean validateUser(User u);
+    public User validateUser(User u);
 
     public String addUser(User u);
 

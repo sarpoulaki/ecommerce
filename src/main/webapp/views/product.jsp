@@ -1,7 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ page session="false" %>
 <html>
 <head>
     <title>Products</title>
@@ -84,6 +83,8 @@
                     <input type="submit"
                            value="<spring:message text="Add Product"/>" />
                 </c:if>
+                <input type="button" onclick="location.href='/'"
+                       value="<spring:message text="Back"/>" />
             </td>
         </tr>
     </table>

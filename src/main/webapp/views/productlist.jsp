@@ -1,7 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ page session="false" %>
 <html>
 <head>
     <title>Main Page</title>
@@ -19,7 +18,6 @@
 
 <br>
 <h3 align="center">Products List</h3>
-
 <c:if test="${!empty listProducts}">
     <table class="tg" align="center">
         <tr>
@@ -32,15 +30,14 @@
             <th width="60">Delete</th>
         </tr>
         <c:forEach items="${listProducts}" var="product">
-            <tr onclick="location.href='/edit/${product.id}'">
-                <td align="right">${product.id}</td>
-                <td>${product.name}</td>
-                <td>${product.description}</td>
-                <td align="right">$${product.unitPrice}</td>
-                <td align="right">${product.quantityOnHand}</td>
-                <td align="center"><a href="<c:url value='/edit/${product.id}' />" >Edit</a></td>
-                <td align="center"><a href="<c:url value='/remove/${product.id}' />" >Delete</a></td>
-            </tr>
+            <div>
+            <%--<tr onclick="location.href='/edit/${product.id}'">--%>
+                <p align="right">${product.id}</p>
+                <p>${product.name}</p>
+                <p>${product.description}</p>
+                <p align="right">$${product.unitPrice}</p>
+                <p align="right">${product.quantityOnHand}</p>
+            </div>
         </c:forEach>
     </table>
 </c:if>

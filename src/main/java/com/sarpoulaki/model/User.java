@@ -8,12 +8,7 @@ package com.sarpoulaki.model;
  * Created on 5/6/2017.
  */
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "user")
@@ -29,7 +24,8 @@ public class User {
 
     private String password;
 
-    private String confirmpassword;
+    @Transient
+    private String confirmPassword;
 
     private String email;
 
@@ -73,7 +69,7 @@ public class User {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
-                ", confirm ='" + confirmpassword + '\'' +
+                ", confirm ='" + confirmPassword + '\'' +
                 ", email='" + email + '\'' +
                 ", role=" + role +
                 '}';
@@ -87,12 +83,12 @@ public class User {
         this.password = password;
     }
 
-    public String getConfirmpassword() {
-        return confirmpassword;
+    public String getConfirmPassword() {
+        return confirmPassword;
     }
 
-    public void setConfirmpassword(String confirmpassword) {
-        this.confirmpassword = confirmpassword;
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 }
 

@@ -1,5 +1,7 @@
 package com.sarpoulaki;
 
+import com.sarpoulaki.model.Product;
+import com.sarpoulaki.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -8,11 +10,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.sarpoulaki.model.Product;
-import com.sarpoulaki.service.ProductService;
-
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 @Controller
 public class ProductController {
@@ -26,16 +27,20 @@ public class ProductController {
     }
 
     @RequestMapping(value = "/products", method = RequestMethod.GET)
-    public String listProducts(Model model) {
-        model.addAttribute("product", new Product());
-        model.addAttribute("listProducts", this.productService.listProducts());
-        return "product";
+    public ModelAndView listProducts(ModelAndView modelAndView, HttpSession session) {
+        modelAndView.addObject("user", session.getAttribute("user"));
+        modelAndView.addObject("product", new Product());
+        modelAndView.addObject("listProducts", this.productService.listProducts());
+        modelAndView.setViewName("product");
+        return modelAndView;
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String home(Model model) {
-        model.addAttribute("listProducts", this.productService.listProducts());
-        return "home";
+    public ModelAndView home(ModelAndView modelAndView, HttpSession session) {
+        modelAndView.addObject("user", session.getAttribute("user"));
+        modelAndView.addObject("listProducts", this.productService.listProducts());
+        modelAndView.setViewName("home");
+        return modelAndView;
     }
 
     //For add and update product both
@@ -58,14 +63,17 @@ public class ProductController {
     public String removeProduct(@PathVariable("id") int id) {
 
         this.productService.removeProduct(id);
-        return "redirect:/products";
+        return "redirect:/";
     }
 
     @RequestMapping("/edit/{id}")
-    public String editProduct(@PathVariable("id") int id, Model model) {
-        model.addAttribute("product", this.productService.getProductById(id));
-//        model.addAttribute("listProducts", this.productService.listProducts());
-        return "product";
+    public ModelAndView editProduct(@PathVariable("id") int id, ModelAndView modelAndView) {
+        modelAndView.addObject("product", this.productService.getProductById(id));
+        modelAndView.addObject("listProducts", this.productService.listProducts());
+        Map<String, Object> mm = modelAndView.getModel();
+//        mm.keySet()
+        modelAndView.setViewName("product");
+        return modelAndView;
     }
 }
 
